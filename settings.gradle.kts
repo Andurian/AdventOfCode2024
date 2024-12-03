@@ -10,7 +10,10 @@ plugins {
 }
 
 include(":day_01")
-include("day_02")
+include(":day_02")
+include(":day_03")
+
 include(":utils")
 
 rootProject.name = "AdventOfCode2024"
+
