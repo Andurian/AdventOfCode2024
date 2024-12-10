@@ -65,7 +65,7 @@ fun sumValidResults(equations: List<Equation>, withCat: Boolean): Long {
 }
 
 fun main() {
-    val lines = readResourceAsLines("/test_input.txt")
+    val lines = readResourceAsLines("/input.txt")
     val equations = lines.map { Equation.fromLine(it) }
 
     println("Day 07 Task 1: ${sumValidResults(equations, false)}")
