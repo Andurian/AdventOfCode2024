@@ -19,6 +19,8 @@ include(":day_07")
 include(":day_08")
 include(":day_09")
 include(":day_10")
+include(":day_11")
+include(":day_12")
 
 include(":utils")
 
