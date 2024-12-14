@@ -4,7 +4,7 @@ import meow.andurian.aoc2024.utils.resourceReader
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-internal class Day31Test {
+internal class Day03Test {
 
     @Test
     fun testTask01() {
