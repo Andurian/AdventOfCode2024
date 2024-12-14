@@ -1,10 +1,8 @@
 package meow.andurian.aoc2024.day_04
 
-import java.io.BufferedReader
-
 import com.github.ajalt.clikt.core.main
-
 import meow.andurian.aoc2024.utils.AoCDay
+import java.io.BufferedReader
 
 class Grid(private val lines: List<String>) {
 
@@ -139,4 +137,4 @@ class Day04 : AoCDay() {
     }
 }
 
-fun main(args : Array<String>) = Day04().main(args)
+fun main(args: Array<String>) = Day04().main(args)

@@ -1,10 +1,9 @@
 package meow.andurian.aoc2024.day_11
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
-
 import meow.andurian.aoc2024.utils.counts
 import meow.andurian.aoc2024.utils.resourceReader
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 internal class Day11Test {
     val stones = resourceReader("/test_input.txt").readLine().split(" ").map { it.toLong() }

@@ -1,7 +1,5 @@
 package meow.andurian.aoc2024.utils
 
-import kotlin.collections.mutableMapOf
-
 enum class Direction {
     North {
         override fun nextCW() = East

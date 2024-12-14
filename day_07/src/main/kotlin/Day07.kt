@@ -1,14 +1,11 @@
 package meow.andurian.aoc2024.day_07
 
-import kotlin.math.log10
-import kotlin.math.floor
-import kotlin.math.pow
-
-import java.io.BufferedReader
-
 import com.github.ajalt.clikt.core.main
-
 import meow.andurian.aoc2024.utils.AoCDay
+import java.io.BufferedReader
+import kotlin.math.floor
+import kotlin.math.log10
+import kotlin.math.pow
 
 enum class Operator {
     Add {
@@ -78,4 +75,4 @@ class Day07 : AoCDay() {
     }
 }
 
-fun main(args : Array<String>) = Day07().main(args)
+fun main(args: Array<String>) = Day07().main(args)

@@ -1,11 +1,9 @@
 package meow.andurian.aoc2024.day_09
 
-import java.io.BufferedReader
-
 import com.github.ajalt.clikt.core.main
-
 import meow.andurian.aoc2024.utils.AoCDay
 import meow.andurian.aoc2024.utils.indexesOf
+import java.io.BufferedReader
 
 open class Block(open val start: Int, open val len: Int) {
     fun last() = start + len - 1
@@ -16,6 +14,7 @@ data class MemBlock(override val start: Int, override val len: Int, val id: Int)
 }
 
 data class FreeBlock(override val start: Int, override val len: Int, val after: Int) : Block(start, len)
+
 fun parseData(line: String): List<MemBlock> {
     val ret = mutableListOf<MemBlock>()
     var isBlock = true
@@ -86,14 +85,14 @@ fun allFreeBlocks(blocks: List<Block>): List<FreeBlock> {
 fun reorderChunked(blocksIn: List<MemBlock>): List<MemBlock> {
     val blocks = blocksIn.toMutableList()
     var moveId = blocks.last().id
-    while(moveId > 0){
-        val idxToMove = blocks.indexesOf{it.id == moveId}.first()
+    while (moveId > 0) {
+        val idxToMove = blocks.indexesOf { it.id == moveId }.first()
         val blockToMove = blocks[idxToMove]
 
         val freeBlocks = allFreeBlocks(blocks)
-        for(idxFree in freeBlocks.indices){
+        for (idxFree in freeBlocks.indices) {
             val blockFree = freeBlocks[idxFree]
-            if(blockFree.len >= blockToMove.len && blockFree.start < blockToMove.start){
+            if (blockFree.len >= blockToMove.len && blockFree.start < blockToMove.start) {
                 blocks.removeAt(idxToMove)
                 blocks.add(blockFree.after + 1, MemBlock(blockFree.start, blockToMove.len, blockToMove.id))
                 break
@@ -122,4 +121,4 @@ class Day09 : AoCDay() {
     }
 }
 
-fun main(args : Array<String>) = Day09().main(args)
+fun main(args: Array<String>) = Day09().main(args)

@@ -1,9 +1,8 @@
 package meow.andurian.aoc2024.day_03
 
+import meow.andurian.aoc2024.utils.resourceReader
 import kotlin.test.Test
 import kotlin.test.assertEquals
-
-import meow.andurian.aoc2024.utils.resourceReader
 
 internal class Day31Test {
 

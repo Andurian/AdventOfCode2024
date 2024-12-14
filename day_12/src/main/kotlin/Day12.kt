@@ -1,15 +1,12 @@
 package meow.andurian.aoc2024.day_12
 
-import kotlin.math.abs
-
-import java.io.BufferedReader
-
 import com.github.ajalt.clikt.core.main
-
 import meow.andurian.aoc2024.utils.AoCDay
 import meow.andurian.aoc2024.utils.DenseGrid
 import meow.andurian.aoc2024.utils.Direction
 import meow.andurian.aoc2024.utils.Point
+import java.io.BufferedReader
+import kotlin.math.abs
 
 enum class Orientation {
     Horizontal, Vertical
@@ -34,7 +31,7 @@ data class Fence(val orientation: Orientation, val on: Int, val between: Pair<In
 
 class Grid<T> : DenseGrid<T> {
 
-    constructor(lines: List<String>, getter: (Char) -> T) : super(lines, getter){}
+    constructor(lines: List<String>, getter: (Char) -> T) : super(lines, getter) {}
 
     fun regions(): List<Set<Point>> {
         fun regionFrom(p: Point): Set<Point> {

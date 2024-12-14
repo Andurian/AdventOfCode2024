@@ -1,11 +1,9 @@
 package meow.andurian.aoc2024.day_08
 
-import java.io.BufferedReader
-
 import com.github.ajalt.clikt.core.main
-
 import meow.andurian.aoc2024.utils.AoCDay
 import meow.andurian.aoc2024.utils.Point
+import java.io.BufferedReader
 
 fun findAntennas(lines: List<String>): Map<Char, List<Point>> {
     val antennas = mutableMapOf<Char, MutableList<Point>>()

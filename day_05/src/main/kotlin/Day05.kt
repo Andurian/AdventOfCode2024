@@ -1,10 +1,8 @@
 package meow.andurian.aoc2024.day_05
 
-import java.io.BufferedReader
-
 import com.github.ajalt.clikt.core.main
-
 import meow.andurian.aoc2024.utils.AoCDay
+import java.io.BufferedReader
 
 enum class State {
     Valid, Invalid
@@ -32,7 +30,7 @@ fun rebuildSequence(rules: List<Rule>, pageNumbers: List<Int>): List<Int> {
             sequence.add(i, number)
             if (rules.all { it.check(sequence) }) {
                 val completeSequence = buildRecursive(sequence, numbersToAdd.drop(1))
-                if(completeSequence != null){
+                if (completeSequence != null) {
                     return completeSequence
                 }
             }
@@ -63,4 +61,4 @@ class Day05 : AoCDay() {
     }
 }
 
-fun main(args : Array<String>) = Day05().main(args)
+fun main(args: Array<String>) = Day05().main(args)

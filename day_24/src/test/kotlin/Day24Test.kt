@@ -1,9 +1,8 @@
 package meow.andurian.aoc2024.day_24
 
+import meow.andurian.aoc2024.utils.resourceReader
 import kotlin.test.Test
 import kotlin.test.assertTrue
-
-import meow.andurian.aoc2024.utils.resourceReader
 
 internal class Day24Test {
     val lines = resourceReader("/test_input.txt").readLines()

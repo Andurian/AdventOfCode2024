@@ -1,18 +1,15 @@
 package meow.andurian.aoc2024.day_01
 
+import com.github.ajalt.clikt.core.main
+import meow.andurian.aoc2024.utils.AoCDay
+import java.io.BufferedReader
 import kotlin.math.abs
 
-import java.io.BufferedReader
-
-import com.github.ajalt.clikt.core.main
-
-import meow.andurian.aoc2024.utils.AoCDay
-
-fun toListsOfSortedInts(lines: List<String>) : Pair<List<Int>, List<Int>>{
+fun toListsOfSortedInts(lines: List<String>): Pair<List<Int>, List<Int>> {
     val leftList = MutableList<Int>(lines.size) { 0 }
     val rightList = MutableList<Int>(lines.size) { 0 }
 
-    for((i, line) in lines.withIndex()) {
+    for ((i, line) in lines.withIndex()) {
         val tokens = line.split("\\s+".toRegex())
         leftList[i] = tokens[0].toInt()
         rightList[i] = tokens[1].toInt()
@@ -24,26 +21,26 @@ fun toListsOfSortedInts(lines: List<String>) : Pair<List<Int>, List<Int>>{
     return Pair(leftList, rightList)
 }
 
-fun task01(lines: List<String>) : Int {
+fun task01(lines: List<String>): Int {
     val (leftList, rightList) = toListsOfSortedInts(lines)
 
     var sum = 0
-    for(i in leftList.indices) {
+    for (i in leftList.indices) {
         sum += abs(leftList[i] - rightList[i])
     }
     return sum
 }
 
-fun task02(lines: List<String>) : Int {
+fun task02(lines: List<String>): Int {
     val (leftList, rightList) = toListsOfSortedInts(lines)
 
     val counts = mutableMapOf<Int, Int>()
-    for(x in rightList){
+    for (x in rightList) {
         counts[x] = 1 + counts.getOrDefault(x, 0)
     }
 
     var sum = 0
-    for(x in leftList){
+    for (x in leftList) {
         sum += x * counts.getOrDefault(x, 0)
     }
 
@@ -59,4 +56,4 @@ class Day01 : AoCDay() {
     }
 }
 
-fun main(args : Array<String>) = Day01().main(args)
+fun main(args: Array<String>) = Day01().main(args)

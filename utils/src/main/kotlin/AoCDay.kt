@@ -9,11 +9,11 @@ import java.io.BufferedReader
 import java.io.File
 import java.nio.file.Path
 
-abstract class AoCDay: CliktCommand() {
-    val inputs : List<Path> by argument().path(mustExist = true).multiple()
+abstract class AoCDay : CliktCommand() {
+    val inputs: List<Path> by argument().path(mustExist = true).multiple()
 
     override fun run() {
-        if(inputs.isEmpty()){
+        if (inputs.isEmpty()) {
             val filename = testInput()
             echo("No inputs were supplied. Falling back to test input: '$filename'")
             solve(resourceReader(filename))
@@ -21,10 +21,10 @@ abstract class AoCDay: CliktCommand() {
         }
 
         var first = true
-        for(filename in inputs){
-            if(first){
+        for (filename in inputs) {
+            if (first) {
                 first = false
-            }else{
+            } else {
                 echo()
             }
             echo("Solving with '$filename'")
@@ -33,7 +33,7 @@ abstract class AoCDay: CliktCommand() {
         }
     }
 
-    open fun testInput() : String = "/test_input.txt"
+    open fun testInput(): String = "/test_input.txt"
 
-    abstract fun solve(reader : BufferedReader)
+    abstract fun solve(reader: BufferedReader)
 }

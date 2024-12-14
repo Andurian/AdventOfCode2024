@@ -1,14 +1,8 @@
 package meow.andurian.aoc2024.day_06
 
-import java.io.BufferedReader
-
 import com.github.ajalt.clikt.core.main
-
-import meow.andurian.aoc2024.utils.AoCDay
-import meow.andurian.aoc2024.utils.indexesOf
-import meow.andurian.aoc2024.utils.Direction
-import meow.andurian.aoc2024.utils.Point
-import meow.andurian.aoc2024.utils.Extent
+import meow.andurian.aoc2024.utils.*
+import java.io.BufferedReader
 
 class Grid(
     rows: Int,

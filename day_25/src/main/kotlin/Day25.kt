@@ -1,16 +1,14 @@
 package meow.andurian.aoc2024.day_25
 
+import com.github.ajalt.clikt.core.main
+import meow.andurian.aoc2024.utils.AoCDay
 import java.io.BufferedReader
 
-import com.github.ajalt.clikt.core.main
-
-import meow.andurian.aoc2024.utils.AoCDay
-
-fun task01(){
+fun task01() {
 
 }
 
-fun task02(){
+fun task02() {
 
 }
 
@@ -23,4 +21,4 @@ class Day25 : AoCDay() {
     }
 }
 
-fun main(args : Array<String>) = Day25().main(args)
+fun main(args: Array<String>) = Day25().main(args)

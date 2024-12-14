@@ -1,11 +1,9 @@
 package meow.andurian.aoc2024.day_14
 
-import java.io.BufferedReader
-
 import com.github.ajalt.clikt.core.main
-
 import meow.andurian.aoc2024.utils.AoCDay
 import meow.andurian.aoc2024.utils.Point
+import java.io.BufferedReader
 
 class Robot(val pos: Point, val velocity: Point) {
     fun moveN(steps: Int, rows: Int, cols: Int): Point {
@@ -47,14 +45,14 @@ fun safetyRating(robots: List<Point>, rows: Int, cols: Int): Long {
     return robotsPerQuadrant.values.fold(1L) { current, points -> current * points.size }
 }
 
-fun printGrid(robots : List<Point>, rows : Int, cols : Int) {
-    for(r in 0 until rows){
-        for(c in 0 until cols){
+fun printGrid(robots: List<Point>, rows: Int, cols: Int) {
+    for (r in 0 until rows) {
+        for (c in 0 until cols) {
             val p = Point(r, c)
-            val n = robots.count{it == p}
-            if(n == 0){
+            val n = robots.count { it == p }
+            if (n == 0) {
                 print(".")
-            }else{
+            } else {
                 print(n)
             }
         }
@@ -62,14 +60,14 @@ fun printGrid(robots : List<Point>, rows : Int, cols : Int) {
     }
 }
 
-fun task01(robots : List<Robot>, rows : Int, cols: Int) : Long{
-    val positions = robots.map{it.moveN(100,rows, cols)}
+fun task01(robots: List<Robot>, rows: Int, cols: Int): Long {
+    val positions = robots.map { it.moveN(100, rows, cols) }
     return safetyRating(positions, rows, cols)
 }
 
-fun task02(robots : List<Robot>, rows : Int, cols: Int) : Int{
+fun task02(robots: List<Robot>, rows: Int, cols: Int): Int {
     var i = 0
-    while(true) {
+    while (true) {
         i++
         val positions = robots.map { it.moveN(i, rows, cols) }
         if (positions.toSet().size == positions.size) {
@@ -89,7 +87,7 @@ class Day14 : AoCDay() {
         println("Day 14 Task 1: ${task01(robots, rows, cols)}")
 
         val its = task02(robots, rows, cols)
-        if(its == 1){
+        if (its == 1) {
             println("Day 14 Task 2: Cannot be solved on test data")
             return
         }
@@ -102,4 +100,4 @@ class Day14 : AoCDay() {
     }
 }
 
-fun main(args : Array<String>) = Day14().main(args)
+fun main(args: Array<String>) = Day14().main(args)

@@ -1,12 +1,10 @@
 package meow.andurian.aoc2024.day_10
 
-import java.io.BufferedReader
-
 import com.github.ajalt.clikt.core.main
-
 import meow.andurian.aoc2024.utils.AoCDay
 import meow.andurian.aoc2024.utils.Direction
 import meow.andurian.aoc2024.utils.Point
+import java.io.BufferedReader
 
 
 enum class Score {
@@ -92,4 +90,4 @@ class Day10 : AoCDay() {
     }
 }
 
-fun main(args : Array<String>) = Day10().main(args)
+fun main(args: Array<String>) = Day10().main(args)

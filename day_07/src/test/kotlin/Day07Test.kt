@@ -1,9 +1,8 @@
 package meow.andurian.aoc2024.day_07
 
+import meow.andurian.aoc2024.utils.resourceReader
 import kotlin.test.Test
 import kotlin.test.assertEquals
-
-import meow.andurian.aoc2024.utils.resourceReader
 
 internal class Day07Test {
     val equations = resourceReader("/test_input.txt").readLines().map { Equation.fromLine(it) }
