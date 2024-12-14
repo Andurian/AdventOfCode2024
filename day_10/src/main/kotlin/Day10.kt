@@ -1,34 +1,13 @@
 package meow.andurian.aoc2024.day_10
 
-import meow.andurian.aoc2024.utils.readResourceAsLines
+import java.io.BufferedReader
 
-enum class Direction {
-    North {
-        override fun next() = East
-    },
-    East {
-        override fun next() = South
-    },
-    South {
-        override fun next() = West
-    },
-    West {
-        override fun next() = North
-    };
+import com.github.ajalt.clikt.core.main
 
-    abstract fun next(): Direction
-}
+import meow.andurian.aoc2024.utils.AoCDay
+import meow.andurian.aoc2024.utils.Direction
+import meow.andurian.aoc2024.utils.Point
 
-data class Point(val row: Int, val col: Int) {
-    fun next(d: Direction): Point {
-        return when (d) {
-            Direction.North -> Point(row - 1, col)
-            Direction.East -> Point(row, col + 1)
-            Direction.South -> Point(row + 1, col)
-            Direction.West -> Point(row, col - 1)
-        }
-    }
-}
 
 enum class Score {
     Target, Path
@@ -64,7 +43,7 @@ class TopologicalMap(val rows: Int, val cols: Int, val heights: Map<Point, Int>)
                 return
             }
             for (d in Direction.entries) {
-                val next = current.next(d)
+                val next = current.neighbor(d)
                 if (contains(next) && heights[next]!! - heights[current]!! == 1 && !visited.contains(next)) {
                     dfs(next, visited + setOf(next))
                 }
@@ -104,10 +83,13 @@ fun task02(map: TopologicalMap): Int {
     return map.trailHeads().sumOf { map.trailheadScore(it, Score.Path) }
 }
 
-fun main() {
-    val lines = readResourceAsLines("/input_mm.txt")
-    val map = TopologicalMap.fromInput(lines)
+class Day10 : AoCDay() {
+    override fun solve(reader: BufferedReader) {
+        val map = TopologicalMap.fromInput(reader.readLines())
 
-    println("Day 10 Task 1: ${task01(map)}")
-    println("Day 10 Task 2: ${task02(map)}")
+        println("Day 10 Task 1: ${task01(map)}")
+        println("Day 10 Task 2: ${task02(map)}")
+    }
 }
+
+fun main(args : Array<String>) = Day10().main(args)

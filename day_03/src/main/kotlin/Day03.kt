@@ -1,6 +1,10 @@
 package meow.andurian.aoc2024.day_03
 
-import meow.andurian.aoc2024.utils.readResourceAsLines
+import java.io.BufferedReader
+
+import com.github.ajalt.clikt.core.main
+
+import meow.andurian.aoc2024.utils.AoCDay
 
 fun executeMulInstruction(instruction: String): Int {
     val exp = """\d{1,3}""".toRegex()
@@ -27,11 +31,18 @@ fun task02(line: String): Int {
             else -> if (active) activeInstructions.add(match.value)
         }
     }
-    return activeInstructions.fold(0, { x, res -> x + executeMulInstruction(res) })
+    return activeInstructions.fold(0) { x, res -> x + executeMulInstruction(res) }
 }
 
-fun main() {
-    val line = readResourceAsLines("/input_mm.txt").joinToString("")
-    println("Day 03 Task 1: ${task01(line)}")
-    println("Day 03 Task 2: ${task02(line)}")
+class Day03 : AoCDay() {
+    override fun testInput() = "/test_input_2.txt"
+
+    override fun solve(reader: BufferedReader) {
+        val line = reader.readLines().joinToString("")
+
+        println("Day 03 Task 1: ${task01(line)}")
+        println("Day 03 Task 2: ${task02(line)}")
+    }
 }
+
+fun main(args : Array<String>) = Day03().main(args)

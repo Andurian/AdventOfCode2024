@@ -1,20 +1,21 @@
 package meow.andurian.aoc2024.day_09
 
-import meow.andurian.aoc2024.utils.readResourceAsLines
+import java.io.BufferedReader
+
+import com.github.ajalt.clikt.core.main
+
+import meow.andurian.aoc2024.utils.AoCDay
 import meow.andurian.aoc2024.utils.indexesOf
 
 open class Block(open val start: Int, open val len: Int) {
     fun last() = start + len - 1
-
 }
 
 data class MemBlock(override val start: Int, override val len: Int, val id: Int) : Block(start, len) {
     fun checksum(): Long = (start..last()).sum().toLong() * id
 }
 
-data class FreeBlock(override val start: Int, override val len: Int, val after: Int) : Block(start, len) {
-}
-
+data class FreeBlock(override val start: Int, override val len: Int, val after: Int) : Block(start, len)
 fun parseData(line: String): List<MemBlock> {
     val ret = mutableListOf<MemBlock>()
     var isBlock = true
@@ -111,10 +112,14 @@ fun task02(blocks: List<MemBlock>): Long {
     return reorderChunked(blocks).sumOf { it.checksum() }
 }
 
-fun main() {
-    val line = readResourceAsLines("/input.txt")[0]
-    val blocks = parseData(line)
+class Day09 : AoCDay() {
+    override fun testInput() = "/test_input_2.txt"
+    override fun solve(reader: BufferedReader) {
+        val blocks = parseData(reader.readLine())
 
-    println("Day 09 Task 1: ${task01(blocks)}")
-    println("Day 09 Task 1: ${task02(blocks)}")
+        println("Day 09 Task 1: ${task01(blocks)}")
+        println("Day 09 Task 1: ${task02(blocks)}")
+    }
 }
+
+fun main(args : Array<String>) = Day09().main(args)

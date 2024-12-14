@@ -1,6 +1,10 @@
 package meow.andurian.aoc2024.day_02
 
-import meow.andurian.aoc2024.utils.readResourceAsLines
+import java.io.BufferedReader
+
+import com.github.ajalt.clikt.core.main
+
+import meow.andurian.aoc2024.utils.AoCDay
 
 fun isReportSafe(report : List<Int>) : Boolean {
     val deltas = (1..report.size - 1).map{ report[it] - report[it - 1] }
@@ -25,10 +29,13 @@ fun task02(reports : List<List<Int>>) : Int{
     return reports.count { isReportSafeWithDampener(it) }
 }
 
-fun main() {
-    val lines = readResourceAsLines("/input_mm.txt")
-    val reports = lines.map{ it.split(" ").map{ it.toInt() } }
+class Day02 : AoCDay() {
+    override fun solve(reader: BufferedReader) {
+        val reports = reader.readLines().map{ it.split(" ").map{ it.toInt() } }
 
-    println("Day 02 Task 1: ${task01(reports)}")
-    println("Day 02 Task 1: ${task02(reports)}")
+        println("Day 02 Task 1: ${task01(reports)}")
+        println("Day 02 Task 1: ${task02(reports)}")
+    }
 }
+
+fun main(args : Array<String>) = Day02().main(args)

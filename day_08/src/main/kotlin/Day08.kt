@@ -1,8 +1,11 @@
 package meow.andurian.aoc2024.day_08
 
-import meow.andurian.aoc2024.utils.readResourceAsLines
+import java.io.BufferedReader
 
-data class Point(val row: Int, val col: Int) {}
+import com.github.ajalt.clikt.core.main
+
+import meow.andurian.aoc2024.utils.AoCDay
+import meow.andurian.aoc2024.utils.Point
 
 fun findAntennas(lines: List<String>): Map<Char, List<Point>> {
     val antennas = mutableMapOf<Char, MutableList<Point>>()
@@ -78,7 +81,7 @@ fun printBoard(antennas: Map<Char, List<Point>>, antinodes: Set<Point>, rows: In
     }
 }
 
-fun allUniqueAntinodeLocations(lines: List<String>, antinodeFun : (List<Point>, Int, Int) -> Set<Point>): Int {
+fun allUniqueAntinodeLocations(lines: List<String>, antinodeFun: (List<Point>, Int, Int) -> Set<Point>): Int {
     val rows = lines.size
     val cols = lines[0].length
 
@@ -91,18 +94,22 @@ fun allUniqueAntinodeLocations(lines: List<String>, antinodeFun : (List<Point>, 
     return ret.filter { it.row >= 0 && it.row < rows && it.col >= 0 && it.col < cols }.size
 }
 
-fun task01(lines: List<String>) : Int{
+fun task01(lines: List<String>): Int {
     return allUniqueAntinodeLocations(lines, ::antinodeLocations)
 }
 
-fun task02(lines: List<String>) : Int{
+fun task02(lines: List<String>): Int {
     return allUniqueAntinodeLocations(lines, ::resonantAntinodeLocations)
 }
 
-fun main() {
-    var lines = readResourceAsLines("/input_mm.txt")
+class Day08 : AoCDay() {
+    override fun testInput() = "/test_input_2.txt"
+    override fun solve(reader: BufferedReader) {
+        var lines = reader.readLines()
 
-    println("Day 08 Task 1: ${task01(lines)}")
-    println("Day 08 Task 2: ${task02(lines)}")
-
+        println("Day 08 Task 1: ${task01(lines)}")
+        println("Day 08 Task 2: ${task02(lines)}")
+    }
 }
+
+fun main(args: Array<String>) = Day08().main(args)

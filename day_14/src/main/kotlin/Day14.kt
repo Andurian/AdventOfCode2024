@@ -1,8 +1,11 @@
 package meow.andurian.aoc2024.day_14
 
-import meow.andurian.aoc2024.utils.readResourceAsLines
+import java.io.BufferedReader
 
-data class Point(val row: Int, val col: Int)
+import com.github.ajalt.clikt.core.main
+
+import meow.andurian.aoc2024.utils.AoCDay
+import meow.andurian.aoc2024.utils.Point
 
 class Robot(val pos: Point, val velocity: Point) {
     fun moveN(steps: Int, rows: Int, cols: Int): Point {
@@ -70,16 +73,33 @@ fun task02(robots : List<Robot>, rows : Int, cols: Int) : Int{
         i++
         val positions = robots.map { it.moveN(i, rows, cols) }
         if (positions.toSet().size == positions.size) {
-            printGrid(positions, rows, cols)
             return i
         }
     }
 }
 
-fun main() {
-    val lines = readResourceAsLines("/test_input.txt")
-    val robots = lines.map { Robot.fromString(it) }
+class Day14 : AoCDay() {
+    override fun solve(reader: BufferedReader) {
+        val robots = reader.readLines().map { Robot.fromString(it) }
 
-    println("Day 14 Task 1: ${task01(robots, 103, 101)}")
-    println("Day 14 Task 2: ${task02(robots, 103, 101)}")
+        // Values are hardcoded according to task
+        val rows = 103
+        val cols = 101
+
+        println("Day 14 Task 1: ${task01(robots, rows, cols)}")
+
+        val its = task02(robots, rows, cols)
+        if(its == 1){
+            println("Day 14 Task 2: Cannot be solved on test data")
+            return
+        }
+
+        println("Day 14 Task 2: $its")
+
+        // Basic visualization
+        val positions = robots.map { it.moveN(its, rows, cols) }
+        printGrid(positions, rows, cols)
+    }
 }
+
+fun main(args : Array<String>) = Day14().main(args)

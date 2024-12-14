@@ -1,6 +1,10 @@
 package meow.andurian.aoc2024.day_05
 
-import meow.andurian.aoc2024.utils.readResourceAsLines
+import java.io.BufferedReader
+
+import com.github.ajalt.clikt.core.main
+
+import meow.andurian.aoc2024.utils.AoCDay
 
 enum class State {
     Valid, Invalid
@@ -40,7 +44,6 @@ fun rebuildSequence(rules: List<Rule>, pageNumbers: List<Int>): List<Int> {
     return buildRecursive(pageNumbers.take(1), pageNumbers.drop(1))!!
 }
 
-
 fun task01(rules: List<Rule>, updates: List<List<Int>>): Int {
     return filterUpdates(rules, updates, State.Valid).sumOf { it[it.size / 2] }
 }
@@ -49,11 +52,15 @@ fun task02(rules: List<Rule>, updates: List<List<Int>>): Int {
     return filterUpdates(rules, updates, State.Invalid).map { rebuildSequence(rules, it) }.sumOf { it[it.size / 2] }
 }
 
-fun main() {
-    val lines = readResourceAsLines("/test_input.txt")
-    val rules = lines.takeWhile { it.isNotBlank() }.map { Rule(it) }
-    var pageNumbers = lines.takeLastWhile { it.isNotBlank() }.map { it.split(",").map { it.toInt() } }
+class Day05 : AoCDay() {
+    override fun solve(reader: BufferedReader) {
+        val lines = reader.readLines()
+        val rules = lines.takeWhile { it.isNotBlank() }.map { Rule(it) }
+        var pageNumbers = lines.takeLastWhile { it.isNotBlank() }.map { it.split(",").map { it.toInt() } }
 
-    println("Day 05 Task 1: ${task01(rules, pageNumbers)}")
-    println("Day 05 Task 2: ${task02(rules, pageNumbers)}")
+        println("Day 05 Task 1: ${task01(rules, pageNumbers)}")
+        println("Day 05 Task 2: ${task02(rules, pageNumbers)}")
+    }
 }
+
+fun main(args : Array<String>) = Day05().main(args)

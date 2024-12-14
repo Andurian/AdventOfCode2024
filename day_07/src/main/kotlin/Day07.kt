@@ -1,9 +1,14 @@
 package meow.andurian.aoc2024.day_07
 
-import meow.andurian.aoc2024.utils.readResourceAsLines
 import kotlin.math.log10
 import kotlin.math.floor
 import kotlin.math.pow
+
+import java.io.BufferedReader
+
+import com.github.ajalt.clikt.core.main
+
+import meow.andurian.aoc2024.utils.AoCDay
 
 enum class Operator {
     Add {
@@ -64,10 +69,13 @@ fun sumValidResults(equations: List<Equation>, withCat: Boolean): Long {
     return equations.filter { it.waysToSolve(withCat).isNotEmpty() }.sumOf { it.result }
 }
 
-fun main() {
-    val lines = readResourceAsLines("/input.txt")
-    val equations = lines.map { Equation.fromLine(it) }
+class Day07 : AoCDay() {
+    override fun solve(reader: BufferedReader) {
+        val equations = reader.readLines().map { Equation.fromLine(it) }
 
-    println("Day 07 Task 1: ${sumValidResults(equations, false)}")
-    println("Day 07 Task 2: ${sumValidResults(equations, true)}")
+        println("Day 07 Task 1: ${sumValidResults(equations, false)}")
+        println("Day 07 Task 2: ${sumValidResults(equations, true)}")
+    }
 }
+
+fun main(args : Array<String>) = Day07().main(args)

@@ -1,67 +1,36 @@
 package meow.andurian.aoc2024.day_06
 
+import java.io.BufferedReader
+
+import com.github.ajalt.clikt.core.main
+
+import meow.andurian.aoc2024.utils.AoCDay
 import meow.andurian.aoc2024.utils.indexesOf
-import meow.andurian.aoc2024.utils.readResourceAsLines
+import meow.andurian.aoc2024.utils.Direction
+import meow.andurian.aoc2024.utils.Point
+import meow.andurian.aoc2024.utils.Extent
 
-enum class Direction {
-    North {
-        override fun next() = East
-    },
-    East {
-        override fun next() = South
-    },
-    South {
-        override fun next() = West
-    },
-    West {
-        override fun next() = North
-    };
+class Grid(
+    rows: Int,
+    cols: Int,
+    val obstacles: Set<Point>
+) : Extent(rows, cols) {
 
-    abstract fun next(): Direction
-}
-
-data class Point(val row: Int, val col: Int) {
-    fun next(d: Direction): Point {
-        return when (d) {
-            Direction.North -> Point(row - 1, col)
-            Direction.East -> Point(row, col + 1)
-            Direction.South -> Point(row + 1, col)
-            Direction.West -> Point(row, col - 1)
-        }
-    }
-}
-
-class Grid {
-    val rows: Int
-    val cols: Int
-    private val obstacles: Set<Point>
-
-    private constructor(grid: Grid, p: Point) {
-        rows = grid.rows
-        cols = grid.cols
-        obstacles = grid.obstacles.union(setOf(p))
-    }
-
-    constructor(lines: List<String>) {
-        rows = lines.size
-        cols = lines[0].length
-        this.obstacles = lines.mapIndexed { row, line ->
+    constructor(lines: List<String>) : this(
+        lines.size, lines[0].length,
+        lines.mapIndexed { row, line ->
             line.mapIndexedNotNull { col, c ->
                 if (c == '#') Point(row, col) else null
             }
         }.flatten().toSet()
-    }
-
-    fun contains(p: Point): Boolean {
-        return p.row >= 0 && p.row < rows && p.col >= 0 && p.col < cols
-    }
+    )
 
     fun isObstacle(p: Point): Boolean {
         return obstacles.contains(p)
     }
 
     fun withAddedObstacle(p: Point): Grid {
-        return Grid(this, p)
+        return Grid(rows, cols, obstacles.union(setOf(p)))
     }
 }
 
@@ -71,20 +40,19 @@ data class Guard(val pos: Point, val dir: Direction) {
         val row = lines.indexesOf { line -> line.contains('^') }.first()
         val col = lines[row].indexOf('^')
         Point(row, col)
-    }(), Direction.North) {
-    }
+    }(), Direction.North)
 
     fun move(grid: Grid): Guard {
         val startingDir = dir
 
         var nextDir = dir
-        var nextPos = pos.next(nextDir)
+        var nextPos = pos.neighbor(nextDir)
 
         while (grid.isObstacle(nextPos)) {
-            nextDir = nextDir.next()
+            nextDir = nextDir.nextCW()
             if (nextDir == startingDir)
                 return this
-            nextPos = pos.next(nextDir)
+            nextPos = pos.neighbor(nextDir)
         }
         return Guard(nextPos, nextDir)
     }
@@ -117,14 +85,18 @@ fun task01(grid: Grid, guard: Guard): Int {
 
 fun task02(grid: Grid, guard: Guard): Int {
     val candidates = mapRoute(grid, guard).first.map { it.pos }.toSet().subtract(setOf(guard.pos))
-    return candidates.map{mapRoute(grid.withAddedObstacle(it), guard).second}.count{it == RouteType.Loop}
+    return candidates.map { mapRoute(grid.withAddedObstacle(it), guard).second }.count { it == RouteType.Loop }
 }
 
-fun main() {
-    val lines = readResourceAsLines("/test_input.txt")
-    val grid = Grid(lines)
-    val guard = Guard(lines)
+class Day06 : AoCDay() {
+    override fun solve(reader: BufferedReader) {
+        val lines = reader.readLines()
+        val grid = Grid(lines)
+        val guard = Guard(lines)
 
-    println("Day 06 Task 1: ${task01(grid, guard)}")
-    println("Day 06 Task 1: ${task02(grid, guard)}")
+        println("Day 06 Task 1: ${task01(grid, guard)}")
+        println("Day 06 Task 1: ${task02(grid, guard)}")
+    }
 }
+
+fun main(args: Array<String>) = Day06().main(args)

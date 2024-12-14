@@ -1,6 +1,10 @@
 package meow.andurian.aoc2024.day_13
 
-import meow.andurian.aoc2024.utils.readResourceAsLines
+import java.io.BufferedReader
+
+import com.github.ajalt.clikt.core.main
+
+import meow.andurian.aoc2024.utils.AoCDay
 
 data class Machine(val xa : Long, val ya : Long, val xb : Long, val yb : Long, val xp : Long, val yp : Long) {
     fun toCorrectedMachine() : Machine{
@@ -71,11 +75,14 @@ fun task02(machines : List<Machine>) : Long{
     return machines.sumOf{ f(it)}
 }
 
-fun main() {
-    val lines = readResourceAsLines("/test_input.txt")
-    val machines = lines.chunked(4).map { Machine.fromLines(it) }
+class Day13 : AoCDay() {
+    override fun solve(reader: BufferedReader) {
+        val machines = reader.readLines().chunked(4).map { Machine.fromLines(it) }
 
-    println("Day 13 Task 1: ${task01(machines)}")
-    println("Day 13 Task 1: ${task01Smart(machines)} (fast)")
-    println("Day 13 Task 2: ${task02(machines)}")
+        println("Day 13 Task 1: ${task01(machines)} (slow)")
+        println("Day 13 Task 1: ${task01Smart(machines)} (fast)")
+        println("Day 13 Task 2: ${task02(machines)}")
+    }
 }
+
+fun main(args : Array<String>) = Day13().main(args)

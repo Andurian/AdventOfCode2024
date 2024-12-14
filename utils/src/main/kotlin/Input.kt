@@ -1,5 +1,11 @@
 package meow.andurian.aoc2024.utils
 
-fun readResourceAsLines(fileName: String): List<String> {
-    return object {}.javaClass.getResourceAsStream(fileName)?.bufferedReader()?.readLines()!!
+import java.io.BufferedReader
+
+fun resourceReader(filename : String) : BufferedReader{
+    return object {}.javaClass.getResourceAsStream(filename)!!.bufferedReader()
+}
+
+fun readResourceAsLines(filename: String): List<String> {
+    return resourceReader(filename).readLines()
 }

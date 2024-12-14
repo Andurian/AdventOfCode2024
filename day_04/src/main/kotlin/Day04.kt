@@ -1,6 +1,10 @@
 package meow.andurian.aoc2024.day_04
 
-import meow.andurian.aoc2024.utils.readResourceAsLines
+import java.io.BufferedReader
+
+import com.github.ajalt.clikt.core.main
+
+import meow.andurian.aoc2024.utils.AoCDay
 
 class Grid(private val lines: List<String>) {
 
@@ -126,9 +130,13 @@ fun task02(grid: Grid): Int {
     return grid.countXMas()
 }
 
-fun main() {
-    val grid = Grid(readResourceAsLines("/input_mm.txt"))
+class Day04 : AoCDay() {
+    override fun solve(reader: BufferedReader) {
+        val grid = Grid(reader.readLines())
 
-    println("Day 04 Task 1: ${task01(grid)}")
-    println("Day 04 Task 2: ${task02(grid)}")
+        println("Day 04 Task 1: ${task01(grid)}")
+        println("Day 04 Task 2: ${task02(grid)}")
+    }
 }
+
+fun main(args : Array<String>) = Day04().main(args)

@@ -2,7 +2,11 @@ package meow.andurian.aoc2024.day_01
 
 import kotlin.math.abs
 
-import meow.andurian.aoc2024.utils.readResourceAsLines
+import java.io.BufferedReader
+
+import com.github.ajalt.clikt.core.main
+
+import meow.andurian.aoc2024.utils.AoCDay
 
 fun toListsOfSortedInts(lines: List<String>) : Pair<List<Int>, List<Int>>{
     val leftList = MutableList<Int>(lines.size) { 0 }
@@ -46,10 +50,13 @@ fun task02(lines: List<String>) : Int {
     return sum
 }
 
+class Day01 : AoCDay() {
+    override fun solve(reader: BufferedReader) {
+        val lines = reader.readLines()
 
-fun main() {
-    val lines = readResourceAsLines("/input_mm.txt")
-    println("Solution Day 01 Task 1: ${task01(lines)}")
-    println("Solution Day 01 Task 2: ${task02(lines)}")
-
+        println("Solution Day 01 Task 1: ${task01(lines)}")
+        println("Solution Day 01 Task 2: ${task02(lines)}")
+    }
 }
+
+fun main(args : Array<String>) = Day01().main(args)
