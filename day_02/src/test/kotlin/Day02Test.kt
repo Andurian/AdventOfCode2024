@@ -3,16 +3,11 @@ package meow.andurian.aoc2024.day_02
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-import meow.andurian.aoc2024.utils.readResourceAsLines
+import meow.andurian.aoc2024.utils.resourceReader
 
 internal class Day02Test {
 
-    private val reports : List<List<Int>>
-
-    init{
-        val lines = readResourceAsLines("/test_input.txt")
-        reports = lines.map{ it.split(" ").map{ it.toInt() } }
-    }
+    private val reports = resourceReader("/test_input.txt").readLines().map{ it.split(" ").map{ it.toInt() } }
 
     @Test
     fun testTask01() {
