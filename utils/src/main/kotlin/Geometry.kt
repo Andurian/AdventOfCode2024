@@ -20,6 +20,18 @@ enum class Direction {
 
     abstract fun nextCW(): Direction
     abstract fun nextCCW(): Direction
+
+    companion object{
+        fun fromChar(c : Char) : Direction{
+            return when(c){
+                '^' -> North
+                '>' -> East
+                'v' -> South
+                '<' -> West
+                else -> throw IllegalArgumentException()
+            }
+        }
+    }
 }
 
 enum class Direction8 {
@@ -94,6 +106,37 @@ open class Extent(val rows: Int, val cols: Int) {
 abstract class Grid<T>(rows: Int, cols: Int) : Extent(rows, cols) {
     abstract fun at(p: Point): T?
     abstract fun set(p: Point, v: T)
+
+    inner class PositionIterator : Iterator<Point>{
+        private var row = 0
+        private var col = 0
+
+        override fun hasNext() = row < rows
+
+        override fun next(): Point {
+            val ret = Point(row, col)
+            ++col
+            if(col >= cols) {
+                col = 0
+                ++row
+            }
+            return ret
+        }
+    }
+
+    inner class ValueIterator : Iterator<T>{
+        private val it = PositionIterator()
+
+        override fun hasNext() = it.hasNext()
+        override fun next() = at(it.next())!!
+    }
+
+    fun positionIterator() : Iterator<Point> = PositionIterator()
+    fun valueIterator() : Iterator<T> = ValueIterator()
+
+    override fun toString() : String{
+        return valueIterator().asSequence().map{ it.toString()[0] }.joinToString("").chunked(cols).joinToString("\n")
+    }
 }
 
 open class SparseGrid<T> : Grid<T> {
@@ -128,7 +171,5 @@ open class DenseGrid<T> : Grid<T> {
         if (!contains(p)) throw IndexOutOfBoundsException()
         elements[toOffset(p)] = v
     }
-
-
 }
 
