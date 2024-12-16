@@ -4,22 +4,33 @@ enum class Direction {
     North {
         override fun nextCW() = East
         override fun nextCCW() = West
+        override fun opposite() = South
     },
     East {
         override fun nextCW() = South
         override fun nextCCW() = North
+        override fun opposite() = West
     },
     South {
         override fun nextCW() = West
         override fun nextCCW() = East
+        override fun opposite() = North
     },
     West {
         override fun nextCW() = North
         override fun nextCCW() = South
+        override fun opposite() = East
     };
 
     abstract fun nextCW(): Direction
     abstract fun nextCCW(): Direction
+    abstract fun opposite(): Direction
+
+    fun distance(other : Direction) : Int{
+        if(other == this) return 0
+        if(other == opposite()) return 2
+        return 1
+    }
 
     companion object{
         fun fromChar(c : Char) : Direction{
