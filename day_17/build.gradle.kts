@@ -6,6 +6,7 @@ plugins {
 dependencies {
     implementation(project(":utils"))
     implementation("com.github.ajalt.clikt:clikt:5.0.1")
+    implementation(kotlin("reflect"))
 
     testImplementation(kotlin("test"))
 }

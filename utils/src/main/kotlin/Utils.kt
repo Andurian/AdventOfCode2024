@@ -1,5 +1,7 @@
 package meow.andurian.aoc2024.utils
 
+import kotlin.math.pow
+
 inline fun <E> Iterable<E>.indexesOf(predicate: (E) -> Boolean) =
     mapIndexedNotNull { index, elem -> index.takeIf { predicate(elem) } }
 
@@ -16,3 +18,6 @@ fun <T> counts(values: List<T>): Map<T, Long> {
     }
     return ret
 }
+
+infix fun Long.exp(exponent: Int): Long = toDouble().pow(exponent).toLong()
+infix fun Int.exp(exponent: Int): Int = toDouble().pow(exponent).toInt()
