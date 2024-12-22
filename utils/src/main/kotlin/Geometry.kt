@@ -5,26 +5,31 @@ enum class Direction {
         override fun nextCW() = East
         override fun nextCCW() = West
         override fun opposite() = South
+        override fun toChar() = '^'
     },
     East {
         override fun nextCW() = South
         override fun nextCCW() = North
         override fun opposite() = West
+        override fun toChar() = '>'
     },
     South {
         override fun nextCW() = West
         override fun nextCCW() = East
         override fun opposite() = North
+        override fun toChar() = 'v'
     },
     West {
         override fun nextCW() = North
         override fun nextCCW() = South
         override fun opposite() = East
+        override fun toChar() = '<'
     };
 
     abstract fun nextCW(): Direction
     abstract fun nextCCW(): Direction
     abstract fun opposite(): Direction
+    abstract fun toChar() : Char
 
     fun distance(other : Direction) : Int{
         if(other == this) return 0
@@ -106,7 +111,24 @@ data class Point(val row: Int, val col: Int) {
             Direction8.NorthWest -> Point(row - 1, col - 1)
         }
     }
+
+    fun plus(other : Point) : Point{
+        return Point(row + other.row, col + other.col)
+    }
+
+    fun Point.minus(other : Point) : Point{
+        return Point(row - other.row, col - other.col)
+    }
+
+    companion object {
+        fun fromString(s : String) : Point{
+            val tokens = s.split(',')
+            return Point(tokens[1].toInt(), tokens[0].toInt())
+        }
+    }
 }
+
+
 
 open class Extent(val rows: Int, val cols: Int) {
     fun contains(p: Point): Boolean {
@@ -169,6 +191,10 @@ open class DenseGrid<T> : Grid<T> {
 
     constructor(lines: List<String>, getter: (Char) -> T) : super(lines.size, lines[0].length) {
         elements = lines.map { line -> line.map { c -> getter(c) } }.flatten().toMutableList()
+    }
+
+    constructor(rows : Int, cols : Int, values : List<T>) : super(rows, cols) {
+        elements = values.toMutableList()
     }
 
     private fun toOffset(p: Point) = (p.row * cols + p.col).toInt()

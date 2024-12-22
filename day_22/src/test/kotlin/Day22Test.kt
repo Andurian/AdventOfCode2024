@@ -2,18 +2,19 @@ package meow.andurian.aoc2024.day_22
 
 import meow.andurian.aoc2024.utils.resourceReader
 import kotlin.test.Test
-import kotlin.test.assertTrue
+import kotlin.test.assertEquals
 
 internal class Day22Test {
-    val lines = resourceReader("/test_input.txt").readLines()
+    val lines1 = resourceReader("/test_input_1.txt").readLines()
+    val lines2 = resourceReader("/test_input_2.txt").readLines()
 
     @Test
     fun testTask01() {
-        assertTrue(lines.isEmpty())
+        assertEquals(task01(lines1), 37327623)
     }
 
     @Test
     fun testTask02() {
-        assertTrue(lines.isEmpty())
+        assertEquals(task02(lines2), 23)
     }
 }

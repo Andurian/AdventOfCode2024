@@ -19,5 +19,13 @@ fun <T> counts(values: List<T>): Map<T, Long> {
     return ret
 }
 
+fun <T> toOverlappingPairs(input: List<T>): List<Pair<T, T>> {
+    val ret = mutableListOf<Pair<T,T>>()
+    for (i in 1 until input.size) {
+        ret.add(Pair(input[i-1], input[i]))
+    }
+    return ret
+}
+
 infix fun Long.exp(exponent: Int): Long = toDouble().pow(exponent).toLong()
 infix fun Int.exp(exponent: Int): Int = toDouble().pow(exponent).toInt()
